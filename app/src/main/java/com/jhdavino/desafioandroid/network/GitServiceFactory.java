@@ -1,6 +1,7 @@
 package com.jhdavino.desafioandroid.network;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.jhdavino.desafioandroid.BuildConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GitServiceFactory {
 
     //instancia do interceptador das requisições
-    private final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    private final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
+            .setLevel((BuildConfig.DEBUG) ?
+                    HttpLoggingInterceptor.Level.BODY :
+                    HttpLoggingInterceptor.Level.NONE);
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
